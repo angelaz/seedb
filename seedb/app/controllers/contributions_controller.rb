@@ -10,7 +10,7 @@ class ContributionsController < ApplicationController
     #     @contributions.push(contribution)
     #   end
     # end
-    @contributions = Contribution.first(100)
+    @contributions = Contribution.where({cand_nm: "Obama, Barack"}).first(500)
   end
 
   # GET /contributions/1
