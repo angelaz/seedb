@@ -4,12 +4,6 @@ class ContributionsController < ApplicationController
   # GET /contributions
   # GET /contributions.json
   def index
-    # @contributions = []
-    # Contribution.find_each do |contribution|
-    #   if contribution.cand_nm == "Obama, Barack"
-    #     @contributions.push(contribution)
-    #   end
-    # end
     @contributions = Contribution.where({cand_nm: "Obama, Barack"}).first(500)
   end
 

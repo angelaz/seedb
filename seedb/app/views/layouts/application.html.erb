@@ -10,7 +10,9 @@
 
 <%= yield %>
 
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" %>
+    
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 
 </body>
 </html>

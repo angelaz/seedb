@@ -2,39 +2,48 @@
 // # All this logic will automatically be available in application.js.
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$.getScript("https://www.google.com/jsapi");
 
 // Load the Visualization API and the piechart package.
 google.load('visualization', '1.0', {'packages':['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
-google.setOnLoadCallback(drawChart);
+google.setOnLoadCallback(fetchData);
+
+function fetchData() {
+
+    $.get("/contributions.json", {}, drawChart, "json");
+
+}
 
 // Callback that creates and populates a data table,
 // instantiates the pie chart, passes in the data and
 // draws it.
-function drawChart() {
+function drawChart(data) {
 
-// Create the data table.
-var data = new google.visualization.DataTable();
-data.addColumn('string', 'Topping');
-data.addColumn('number', 'Slices');
-data.addRows([
-  ['Mushrooms', 3],
-  ['Onions', 1],
-  ['Olives', 1],
-  ['Zucchini', 1],
-  ['Pepperoni', 2]
-]);
+    var counts = {};
 
-// Set chart options
-var options = {'title':'How Much Pizza I Ate Last Night',
-               'width':400,
-               'height':300};
+    data.forEach(function(contribution) {
+        if (! counts[contribution.contbr_occupation]) {
+            counts[contribution.contbr_occupation] = 1;
+        } else {
+            counts[contribution.contbr_occupation] += 1;
+        }
+    });
 
-// Instantiate and draw our chart, passing in some options.
-var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-$(document).ready(function() {
-    chart.draw(data, options);
-});
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Topping');
+    data.addColumn('number', 'Slices');
+    data.addRows(_.pairs(counts));
+
+    // Set chart options
+    var options = {'title':'Contributor Occupations',
+                   'width':800,
+                   'height':800};
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    $(document).ready(function() {
+        chart.draw(data, options);
+    });
 }
