@@ -10,17 +10,16 @@ google.load('visualization', '1.0', {'packages':['corechart']});
 google.setOnLoadCallback(fetchData);
 
 function fetchData() {
-
-    $.get("/contributions.json", {}, drawChart, "json");
-
+    $.get("/contributions.json", {}, organizeData, "json");
 }
 
-// Callback that creates and populates a data table,
-// instantiates the pie chart, passes in the data and
-// draws it.
-function drawChart(data) {
-
+function organizeData(data) {
     var counts = {};
+    var x_axis = "Occupations";
+    var y_axis = "Number of Donors";
+    var title = "Contributor Occupations";
+    var width = 600;
+    var height = 500;
 
     data.forEach(function(contribution) {
         if (! counts[contribution.contbr_occupation]) {
@@ -30,19 +29,28 @@ function drawChart(data) {
         }
     });
 
+    drawChart("ColumnChart", counts, title, x_axis, y_axis, width, height);
+}
+// Callback that creates and populates a data table,
+// instantiates the pie chart, passes in the data and
+// draws it.
+function drawChart(chartType, counts, title, x_axis, y_axis, width, height) {
+
     // Create the data table.
     var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Topping');
-    data.addColumn('number', 'Slices');
+    data.addColumn('string', x_axis);
+    data.addColumn('number', y_axis);
     data.addRows(_.pairs(counts));
 
     // Set chart options
-    var options = {'title':'Contributor Occupations',
-                   'width':800,
-                   'height':800};
+    var options = {'title': title,
+                   'width':width,
+                   'height':height};
 
     // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
+    var chart = new google.visualization[chartType](document.getElementById('chart_div'));
+
     $(document).ready(function() {
         chart.draw(data, options);
     });
