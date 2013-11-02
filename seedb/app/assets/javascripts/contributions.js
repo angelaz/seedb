@@ -55,15 +55,13 @@ function drawChart(chartType, counts, title, x_axis, y_axis, width, height) {
     });
 }
 
-
-
 SearchView = Backbone.View.extend({
     initialize: function(){
         this.render();
     },
     render: function(){
         var template = _.template( $("#search_template").html(), {} );
-        this.el.html( template );
+        this.$el.html( template );
     },
     events: {
         "click input[type=button]": "doSearch"  
@@ -75,41 +73,6 @@ SearchView = Backbone.View.extend({
 });
 
 var search_view = new SearchView({ el: $("#search_container") });
-
-
-
-
-
-
-
-
-
-
-
-
-// var GraphView = Backbone.View.extend({
-
-//   tagName: "li",
-
-//   className: "document-row",
-
-//   events: {
-//     "click .icon":          "open",
-//     "click .button.edit":   "openEditDialog",
-//     "click .button.delete": "destroy"
-//   },
-
-//   initialize: function() {
-//     this.listenTo(this.model, "change", this.render);
-//   },
-
-//   render: function() {
-//     ...
-//   }
-
-// });
-
-// var graph_view = new GraphView();
 
 
 
