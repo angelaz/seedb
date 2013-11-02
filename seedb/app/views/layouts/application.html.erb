@@ -9,10 +9,9 @@
 <body>
 
 <%= yield %>
-
-
-    
+    <%= javascript_include_tag src="https://www.google.com/jsapi"%>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
 
 </body>
 </html>

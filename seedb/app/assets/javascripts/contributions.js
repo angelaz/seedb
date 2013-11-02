@@ -2,7 +2,26 @@
 // # All this logic will automatically be available in application.js.
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 
+    SearchView = Backbone.View.extend({
+        initialize: function(){
+            this.render();
+        },
+        render: function(){
+            var template = _.template( $("#search_template").html(), {} );
+            this.el.html( template );
+        },
+        events: {
+            "click input[type=button]": "doSearch"  
+        },
+        doSearch: function(){
+            // Button clicked
+            console.log(this);
+        }
+    });
+    
+    var search_view = new SearchView({ el: $("#search_container") });
 
+    
 // Load the Visualization API and the piechart package.
 google.load('visualization', '1.0', {'packages':['corechart']});
 
