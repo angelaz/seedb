@@ -14,5 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require underscore-min
-//= requre backbone-min
+//= require backbone-min
 //= require_tree .
