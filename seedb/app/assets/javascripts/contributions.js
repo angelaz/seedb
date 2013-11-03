@@ -13,9 +13,7 @@ var ChartModel = Backbone.Model.extend({
         div_name: "chart_div",
         chart_type: "ColumnChart",
         aggregate_by: "contbr_occupation",
-        title: "Contributor Occupations",
-        x_axis_label: "Occupations",
-        y_axis_label: "Number of Contributors",
+        x_axis_label: "count",
         width: 600,
         height: 500
       };
@@ -41,13 +39,10 @@ GraphView = Backbone.View.extend({
     },
     doRender: function(){
 
-        // model.set("chart_type", $("#chart_type_input").val());
-        // model.set("title", $("#title_input").val());
+        model.set("chart_type", $("#chart_type_input").val());
         model.set("aggregate_by", $("#aggregate_by_input").val());
-        // model.set("x_axis_label", $("#x_axis_label_input").val());
-        // model.set("y_axis_label", $("#y_axis_label_input").val());
-        // model.set("width", $("#width_input").val());
-        // model.set("height", $("#height_input").val());
+        model.set("width", $("#width_input").val());
+        model.set("height", $("#height_input").val());
     }
 });
 
@@ -102,11 +97,11 @@ function drawChart() {
     // // Create the data table.
     // var data = new google.visualization.DataTable();
     // data.addColumn('string', model.get("x_axis_label"));
-    // data.addColumn('number', model.get("y_axis_label"));
+    // data.addColumn('number', model.get("aggregate_by"));
     // data.addRows(_.pairs(model.get("counts")));
 
     // // Set chart options
-    // var options = {'title': model.get("title"),
+    // var options = {'title': model.get("aggregate_by"),
     //                'width':model.get("width"),
     //                'height':model.get("height")};
 
