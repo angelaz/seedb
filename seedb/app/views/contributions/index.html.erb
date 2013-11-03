@@ -41,26 +41,3 @@
 
 <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
- 
-  <tbody>
-    <% @contributions.each do |contribution| %>
-      <tr>
-        <td><%= contribution.cand_nm %></td>
-        <td><%= contribution.contb_receipt_amt %></td>
-        <td><%= contribution.contb_receipt_dt %></td>
-        <td><%= contribution.contbr_st %></td>
-        <td> <%= contribution.contbr_occupation %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-

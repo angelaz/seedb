@@ -4,7 +4,16 @@ class ContributionsController < ApplicationController
   # GET /contributions
   # GET /contributions.json
   def index
-    @contributions = Contribution.find_by_sql("SELECT * FROM donations WHERE cand_nm='Hunter, Duncan' LIMIT 500");
+
+    if params[:query]
+      query = params[:query]
+    else
+      query = "SELECT * FROM donations WHERE cand_nm='Obama, Barack' LIMIT 500"
+    end
+
+    @contributions = Contribution.find_by_sql(query)
+
+
   end
 
   private
