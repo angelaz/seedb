@@ -5,25 +5,40 @@
 
 <div id="render_container"></div>
 <script type="text/template" id="render_template">
-    <label>Chart Type</label>
-    <input type="text" id="chart_type_input" />
 
-    <label>Title</label>
-    <input type="text" id="title_input" />
+    <div>
+      <label>Chart Type</label>
+      <input type="text" id="chart_type_input" value="{{=chart_type}}" />
+    </div>
 
-    <label>Width</label>
-    <input type="text" id="width_input" />
+    <div>
+      <label>Title</label>
+      <input type="text" id="title_input" value="{{=title}}" />
+    </div>
 
-    <label>Height</label>
-    <input type="text" id="height_input" />
+    <div>
+      <label>Width</label>
+      <input type="text" id="width_input" value="{{=width}}" />
+    </div>
 
-    <label>X-Axis Label</label>
-    <input type="text" id="x_axis_input" />
+    <div>
+      <label>Height</label>
+      <input type="text" id="height_input" value="{{=height}}" />
+    </div>
 
-    <label>Y-Axis Label</label>
-    <input type="text" id="y_axis_input" />
+    <div>
+      <label>X-Axis Label</label>
+      <input type="text" id="x_axis_input" value="{{=x_axis}}" />
+    </div>
 
+    <div>
+      <label>Y-Axis Label</label>
+      <input type="text" id="y_axis_input" value="{{=y_axis}}" />
+    </div>
+
+    <div>
     <input type="button" id="render_button" value="Render" />
+    </div>
 </script>
 
 <!--Div that will hold the pie chart-->

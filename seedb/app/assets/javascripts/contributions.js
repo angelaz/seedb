@@ -1,10 +1,59 @@
-var ChartModel = Backbone.Model.extend({});
+_.templateSettings = {
+    interpolate: /\{\{\=(.+?)\}\}/g,
+    evaluate: /\{\{(.+?)\}\}/g
+};
+
+
+// Backbone Model
+
+var ChartModel = Backbone.Model.extend({
+    defaults: function() {
+      return {
+        counts: null,
+        div_name: "chart_div",
+        chart_type: "ColumnChart",
+        title: "Contributor Occupations",
+        x_axis: "Occupations",
+        y_axis: "Number of Contributors",
+        width: 600,
+        height: 500
+      };
+    }
+});
+
 var model = new ChartModel();
+model.on("change", drawChart);
 
-// Load the Visualization API and the piechart package.
+
+// Backbone View
+
+GraphView = Backbone.View.extend({
+    initialize: function(){
+        this.render();
+    },
+    render: function(){
+        var template = _.template( $("#render_template").html(), model.attributes );
+        this.$el.html( template );
+    },
+    events: {
+        "click input[id=render_button]": "doRender"  
+    },
+    doRender: function(){
+        model.set("chart_type", $("#chart_type_input").val());
+        model.set("title", $("#title_input").val());
+        model.set("x_axis", $("#x_axis_input").val());
+        model.set("y_axis", $("#y_axis_input").val());
+        model.set("width", $("#width_input").val());
+        model.set("height", $("#height_input").val());
+    }
+});
+
+var graph_view = new GraphView({ el: $("#render_container") });
+
+
+// Draw Chart Google Charts 
+
 google.load('visualization', '1.0', {'packages':['corechart']});
-
-// Set a callback to run when the Google Visualization API is loaded.
 google.setOnLoadCallback(fetchData);
 
 function fetchData() {
@@ -24,20 +73,8 @@ function prepareChart(data) {
     });
 
     model.set("counts", counts);
-    model.set("x_axis", "Occupations");
-    model.set("y_axis", "Number of Donors");
-    model.set("title", "Contributor Occupations");
-    model.set("width", 600);
-    model.set("height", 500);
-    model.set("div_name", "chart_div");
-    model.set("chart_type", "ColumnChart");
-
-    drawChart();
 }
 
-// Callback that creates and populates a data table,
-// instantiates the pie chart, passes in the data and
-// draws it.
 function drawChart() {
 
     // Create the data table.
@@ -59,37 +96,3 @@ function drawChart() {
         chart.draw(data, options);
     });
 }
-
-// var ChartModel = Backbone.Model.extend({});
-
-
-GraphView = Backbone.View.extend({
-    initialize: function(){
-        this.render();
-    },
-    render: function(){
-        var template = _.template( $("#render_template").html(), {} );
-        this.$el.html( template );
-    },
-    events: {
-        "click input[id=render_button]": "doRender"  
-    },
-    doRender: function(){
-        model.set("chart_type", $("#chart_type_input").val());
-        model.set("title", $("#title_input").val());
-        model.set("x_axis", $("#x_axis_input").val());
-        model.set("y_axis", $("#y_axis_input").val());
-        model.set("width", $("#width_input").val());
-        model.set("height", $("#height_input").val());
-        drawChart();      
-    }
-});
-
-var graph_view = new GraphView({ el: $("#render_container") });
-
-
-
-
-
-
-
