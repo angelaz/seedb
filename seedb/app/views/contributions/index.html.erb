@@ -12,6 +12,11 @@
     </div>
 
     <div>
+      <label>Aggregate By</label>
+      <input type="text" id="aggregate_by_input" value="{{=aggregate_by}}" />
+    </div>
+
+    <div>
       <label>Title</label>
       <input type="text" id="title_input" value="{{=title}}" />
     </div>
@@ -28,12 +33,12 @@
 
     <div>
       <label>X-Axis Label</label>
-      <input type="text" id="x_axis_input" value="{{=x_axis}}" />
+      <input type="text" id="x_axis_label_input" value="{{=x_axis_label}}" />
     </div>
 
     <div>
       <label>Y-Axis Label</label>
-      <input type="text" id="y_axis_input" value="{{=y_axis}}" />
+      <input type="text" id="y_axis_label_input" value="{{=y_axis_label}}" />
     </div>
 
     <div>
@@ -43,3 +48,26 @@
 
 <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+    <% @contributions.each do |contribution| %>
+      <tr>
+        <td><%= contribution.cand_nm %></td>
+        <td><%= contribution.contb_receipt_amt %></td>
+        <td><%= contribution.contb_receipt_dt %></td>
+        <td><%= contribution.contbr_st %></td>
+        <td> <%= contribution.contbr_occupation %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
