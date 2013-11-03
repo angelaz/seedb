@@ -9,6 +9,7 @@ _.templateSettings = {
 var ChartModel = Backbone.Model.extend({
     defaults: function() {
       return {
+        query: "SELECT 'donations'.* FROM 'donations' WHERE 'donations'.'cand_nm' = 'Obama, Barack' LIMIT 500",
         counts: null,
         div_name: "chart_div",
         chart_type: "ColumnChart",

@@ -4,7 +4,7 @@ class ContributionsController < ApplicationController
   # GET /contributions
   # GET /contributions.json
   def index
-    @contributions = Contribution.where({cand_nm: "Obama, Barack"}).first(500)
+    @contributions = Contribution.find_by_sql("SELECT * FROM donations WHERE cand_nm='Hunter, Duncan' LIMIT 500");
   end
 
   private
