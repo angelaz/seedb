@@ -6,8 +6,8 @@
 development:
   adapter: postgresql
   database: donations
-  username: postgres
-  password: postgres
+  username: rails
+  password: readonly
   host: localhost
   timeout: 5000
 
