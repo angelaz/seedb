@@ -37,15 +37,16 @@ GraphView = Backbone.View.extend({
         this.$el.html( template );
     },
     events: {
-        "click input[id=render_button]": "setValues"  
+        "click input[id=render_button]": "updateOnClick",
+        "keypress input[type=text]"  : "updateOnEnter"  
     },
-    setValues: function(){
-
-        model.set("query", $("#query_input").val())
-        model.set("chart_type", $("#chart_type_input").val());
-        model.set("aggregate_by", $("#aggregate_by_input").val());
-        model.set("width", $("#width_input").val());
-        model.set("height", $("#height_input").val());
+    updateOnEnter: function(e) {
+        if (e.type === "keypress" && e.keyCode === 13) {
+            setValues();
+        }
+    },
+    updateOnClick: function(){
+        setValues();
     }
 });
 
@@ -58,6 +59,14 @@ var graph_view = new GraphView({ el: $("#render_container") });
 google.load('visualization', '1.0', {'packages':['corechart']});
 google.setOnLoadCallback(fetchData);
 
+
+function setValues() {
+    model.set("query", $("#query_input").val());
+    model.set("chart_type", $("#chart_type_input").val());
+    model.set("aggregate_by", $("#aggregate_by_input").val());
+    model.set("width", $("#width_input").val());
+    model.set("height", $("#height_input").val());
+}
 
 function fetchData() {
     console.log("fetchData called.");
