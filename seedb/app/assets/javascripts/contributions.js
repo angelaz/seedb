@@ -37,7 +37,8 @@ GraphView = Backbone.View.extend({
         this.$el.html( template );
     },
     events: {
-        "click input[id=render_button]": "updateOnClick",
+        "click #render_button": "updateOnClick",
+        "change select": "updateOnClick",
         "keypress input[type=text]"  : "updateOnEnter"  
     },
     updateOnEnter: function(e) {
@@ -55,7 +56,6 @@ var graph_view = new GraphView({ el: $("#render_container") });
 
 // Draw Chart Google Charts 
 
-//Temporary:
 google.load('visualization', '1.0', {'packages':['corechart']});
 google.setOnLoadCallback(fetchData);
 
@@ -70,7 +70,6 @@ function setValues() {
 
 function fetchData() {
     console.log("fetchData called.");
-
     $.get("/contributions.json", {"query": model.get("query")}, prepareChart, "json");
 }
 
